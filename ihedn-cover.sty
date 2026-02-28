@@ -214,7 +214,7 @@
     \tl_clear:N \l_cover_title_tl
     \tl_clear:N \l_cover_subtitle_tl
     \tl_clear:N \l_cover_committee_tl
-    \tl_set:Nn \l_cover_logo_path_tl {Figures/logos_IHEDN/Logo-AR16}
+    \tl_clear:N \l_cover_logo_path_tl
     \tl_set:Nn \l_cover_header_one_tl {Union-IHEDN}
     \tl_set:Nn \l_cover_header_two_tl {Association~des~auditeurs~IHEDN}
     \tl_set:Nn \l_cover_header_three_tl {région~Paris~/~Île~de~France}
@@ -224,6 +224,7 @@
     \tl_set:Nn \l_cover_title_baselineskip_tl {28.667pt}
     \int_set:Nn \l_cover_title_max_lines_int {2}
     \keys_set:nn { cover/page } { #1 }
+    \tl_trim_spaces:N \l_cover_logo_path_tl
     \tl_trim_spaces:N \l_cover_committee_tl
     \tl_replace_all:Nnn \l_cover_committee_tl { \\ } { \c_space_tl }
     \tl_replace_all:Nnn \l_cover_committee_tl { \par } { \par\noindent }
@@ -245,6 +246,16 @@
   { \fontsize{\l_cover_title_fontsize_tl}{\l_cover_title_baselineskip_tl}\selectfont }
 \cs_new:Npn \CoverSubtitleFontSpec { \fontsize{20.000pt}{22.000pt}\selectfont }
 \cs_new:Npn \CoverCommitteeFontSpec { \fontsize{10.667pt}{12.000pt}\selectfont }
+\cs_new_protected:Npn \CoverPlaceLogoIfSet
+  {
+    \tl_if_blank:VF \l_cover_logo_path_tl
+      { \CoverPlaceImage{19.451}{24.596}{32.052}{44.907}{\l_cover_logo_path_tl} }
+  }
+\cs_new_protected:Npn \CoverDebugLogoBoxIfSet
+  {
+    \tl_if_blank:VF \l_cover_logo_path_tl
+      { \CoverDebugBox{19.451}{24.596}{32.052}{44.907}{logo} }
+  }
 \ExplSyntaxOff
 
 \NewDocumentCommand{\PageDeGardeIHEDN}{g}{%
@@ -271,7 +282,7 @@
 % 1pt = 0.3527778mm
 
 % --- Logo ---
-\CoverPlaceImage{19.451}{24.596}{32.052}{44.907}{\CoverLogoPathField}
+\CoverPlaceLogoIfSet
 
 % --- Header (from measured line boxes) ---
 \CoverLineBoxRight{\CoverXRight}{12.933}{\bfseries\fontsize{15.333pt}{18.000pt}\selectfont}{\CoverHeaderOneField}
@@ -313,7 +324,7 @@
     at ([xshift=\CoverXRight mm,yshift=-0.8mm]current page.north west) {X\_RIGHT};
 
   % Bounding boxes
-  \CoverDebugBox{19.451}{24.596}{32.052}{44.907}{logo}
+  \CoverDebugLogoBoxIfSet
   \CoverDebugBox{159.851}{12.933}{35.110}{6.233}{hdr1}
   \CoverDebugBox{113.877}{19.918}{81.055}{6.233}{hdr2}
   \CoverDebugBox{129.582}{26.945}{65.382}{6.233}{hdr3}
