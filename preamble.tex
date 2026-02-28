@@ -181,7 +181,7 @@
     \int_set:Nn \l_cover_title_max_lines_int {2}
     \keys_set:nn { cover/page } { #1 }
     \tl_trim_spaces:N \l_cover_committee_tl
-    \tl_replace_all:Nnn \l_cover_committee_tl { \\ } { ~ }
+    \tl_replace_all:Nnn \l_cover_committee_tl { \\ } { \c_space_tl }
     \tl_replace_all:Nnn \l_cover_committee_tl { \par } { \par\noindent }
     \cover_check_title_fit:
   }
