@@ -93,20 +93,6 @@
   \CoverTextBox{13.081}{150.757}{176.536}{center}{\bfseries\CoverSubtitleFontSpec}{#1}%
 }
 
-\newcommand{\CoverCommitteeBox}[1]{%
-  \CoverTextBox{15.028}{236.094}{180.013}{left}{\CoverCommitteeFontSpec\justifying}{#1}%
-}
-
-\newcommand{\CoverCommitteeBoxCentered}[5]{%
-  \node[
-    anchor=north,
-    inner sep=0pt,
-    outer sep=0pt,
-    text width=#3mm,
-    align=center
-  ] at ([xshift=\dimexpr#1mm + #3mm/2\relax,yshift=-#2mm]current page.north west) {{#4\centering #5}};%
-}
-
 \newcommand{\CoverCommitteeBoxJustified}[5]{%
   \node[
     anchor=north,
