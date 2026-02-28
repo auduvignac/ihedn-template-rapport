@@ -14,12 +14,14 @@
 \newif\ifcoverlocalsmallcapsfix
 \newif\ifcoverfontglobal
 \newif\ifcoverfontlocal
+\newif\ifcoverusesvg
 \coverapplygeometryfalse
 \coverglobaltypesettingfalse
 \coverglobalsmallcapsfixfalse
 \coverlocalsmallcapsfixtrue
 \coverfontglobaltrue
 \coverfontlocalfalse
+\coverusesvgtrue
 
 \DeclareOption{apply-geometry}{\coverapplygeometrytrue}
 \DeclareOption{no-apply-geometry}{\coverapplygeometryfalse}
@@ -32,6 +34,8 @@
 \DeclareOption{global-mainfont}{\coverfontglobaltrue\coverfontlocalfalse}
 \DeclareOption{local-mainfont}{\coverfontglobalfalse\coverfontlocaltrue}
 \DeclareOption{no-mainfont-override}{\coverfontglobalfalse\coverfontlocalfalse}
+\DeclareOption{svg-support}{\coverusesvgtrue}
+\DeclareOption{no-svg-support}{\coverusesvgfalse}
 \ProcessOptions\relax
 
 \ifcoverapplygeometry
@@ -39,7 +43,9 @@
 \fi
 \RequirePackage{fontspec}
 \RequirePackage{graphicx}
-\RequirePackage{svg}
+\ifcoverusesvg
+  \RequirePackage{svg}
+\fi
 \RequirePackage{tikz}
 \RequirePackage{ragged2e}
 \usetikzlibrary{calc}
@@ -209,9 +215,15 @@
 }
 
 \newcommand{\CoverPlaceSvg}[5]{%
-  \node[anchor=north west,inner sep=0pt,outer sep=0pt]
-    at ([xshift=#1mm,yshift=-#2mm]current page.north west)
-    {\includesvg[width=#3mm,height=#4mm,inkscapelatex=false]{#5}};%
+  \ifcoverusesvg
+    \node[anchor=north west,inner sep=0pt,outer sep=0pt]
+      at ([xshift=#1mm,yshift=-#2mm]current page.north west)
+      {\includesvg[width=#3mm,height=#4mm,inkscapelatex=false]{#5}};%
+  \else
+    \PackageWarningNoLine{ihedn-cover}{%
+      SVG~logo~requested~('#5')~but~svg~support~is~disabled~(option~no-svg-support)%
+    }%
+  \fi
 }
 
 \newcommand{\CoverDebugBox}[5]{%
@@ -329,7 +341,23 @@
         \regex_match:nnTF { \.svg\Z } { \l_tmpb_tl }
           {
             \regex_replace_once:nnN { \.[sS][vV][gG]\Z } {} \l_tmpa_tl
-            \CoverPlaceSvg{\CoverLogoX}{\CoverLogoY}{\CoverLogoWidth}{\CoverLogoHeight}{\l_tmpa_tl}
+            \ifcoverusesvg
+              \CoverPlaceSvg{\CoverLogoX}{\CoverLogoY}{\CoverLogoWidth}{\CoverLogoHeight}{\l_tmpa_tl}
+            \else
+              \tl_set:Nx \l_tmpc_tl { \l_tmpa_tl .pdf }
+              \file_if_exist:nTF { \tl_use:N \l_tmpc_tl }
+                { \CoverPlaceImage{\CoverLogoX}{\CoverLogoY}{\CoverLogoWidth}{\CoverLogoHeight}{\l_tmpc_tl} }
+                {
+                  \tl_set:Nx \l_tmpc_tl { \l_tmpa_tl .png }
+                  \file_if_exist:nTF { \tl_use:N \l_tmpc_tl }
+                    { \CoverPlaceImage{\CoverLogoX}{\CoverLogoY}{\CoverLogoWidth}{\CoverLogoHeight}{\l_tmpc_tl} }
+                    {
+                      \PackageWarningNoLine{ihedn-cover}
+                        {SVG~path~'\l_tmpa_tl.svg'~provided~but~svg~support~is~disabled~
+                         and~no~.pdf/.png~fallback~was~found}
+                    }
+                }
+            \fi
           }
           {
             \regex_match:nnTF { \.(pdf|png)\Z } { \l_tmpb_tl }
@@ -345,13 +373,19 @@
                     \file_if_exist:nTF { \tl_use:N \l_tmpc_tl }
                       { \CoverPlaceImage{\CoverLogoX}{\CoverLogoY}{\CoverLogoWidth}{\CoverLogoHeight}{\l_tmpc_tl} }
                       {
-                        \tl_set:Nx \l_tmpc_tl { \l_tmpa_tl .svg }
-                        \file_if_exist:nTF { \tl_use:N \l_tmpc_tl }
-                          { \CoverPlaceSvg{\CoverLogoX}{\CoverLogoY}{\CoverLogoWidth}{\CoverLogoHeight}{\l_tmpa_tl} }
-                          {
-                            \PackageWarningNoLine{ihedn-cover}
-                              {Logo~path~'\l_tmpa_tl'~not~found.~Tried~.pdf,~.png,~.svg}
-                          }
+                        \ifcoverusesvg
+                          \tl_set:Nx \l_tmpc_tl { \l_tmpa_tl .svg }
+                          \file_if_exist:nTF { \tl_use:N \l_tmpc_tl }
+                            { \CoverPlaceSvg{\CoverLogoX}{\CoverLogoY}{\CoverLogoWidth}{\CoverLogoHeight}{\l_tmpa_tl} }
+                            {
+                              \PackageWarningNoLine{ihedn-cover}
+                                {Logo~path~'\l_tmpa_tl'~not~found.~Tried~.pdf,~.png,~.svg}
+                            }
+                        \else
+                          \PackageWarningNoLine{ihedn-cover}
+                            {Logo~path~'\l_tmpa_tl'~not~found.~Tried~.pdf,~.png~
+                             (svg~support~disabled)}
+                        \fi
                       }
                   }
               }

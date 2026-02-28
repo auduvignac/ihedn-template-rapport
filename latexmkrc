@@ -22,7 +22,20 @@ if (defined $engine && $engine ne 'xelatex') {
   $ENV{'LATEXMK_ENGINE'} = 'xelatex';
 }
 
-$xelatex = 'xelatex -shell-escape -synctex=1 -file-line-error %O %S';
+my $shell_escape = $ENV{'LATEXMK_SHELL_ESCAPE'} // '1';
+my $shell_escape_flag = '';
+if ($shell_escape =~ /^(?:1|true|yes|on)$/i) {
+  $shell_escape_flag = '-shell-escape ';
+}
+elsif ($shell_escape =~ /^(?:0|false|no|off)$/i) {
+  warn "WARNING (ihedn): LATEXMK_SHELL_ESCAPE disabled; SVG logos require shell escape.\n";
+}
+else {
+  warn "WARNING (ihedn): Unrecognized LATEXMK_SHELL_ESCAPE='$shell_escape'; defaulting to enabled.\n";
+  $shell_escape_flag = '-shell-escape ';
+}
+
+$xelatex = "xelatex ${shell_escape_flag}-synctex=1 -file-line-error %O %S";
 $pdf_mode = 5;
 # Compatibility: `latexmk -pdf` still runs XeLaTeX.
 $pdflatex = $xelatex;
