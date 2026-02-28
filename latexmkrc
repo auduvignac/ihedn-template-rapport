@@ -41,6 +41,8 @@ $pdf_mode = 5;
 $pdflatex = $xelatex;
 # Compatibility: if tooling forces LuaLaTeX modes/switches, still run XeLaTeX.
 $lualatex = $xelatex;
+# BibLaTeX: force Biber instead of BibTeX.
+$bibtex = 'biber %O %B';
 
 # Fail fast with a clear message if XeLaTeX is missing.
 sub cover_has_xelatex {
@@ -57,7 +59,7 @@ if (!cover_has_xelatex()) {
 }
 
 # Nettoyage additionnel
-$clean_ext .= ' synctex.gz';
+$clean_ext .= ' synctex.gz bbl bcf run.xml';
 
 # Dossier de sortie (optionnel)
 # $out_dir = 'build';

@@ -1,10 +1,13 @@
 \documentclass[12pt,a4paper]{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
 
 % ============================================================
 % IHEDN COVER TEMPLATE (XeLaTeX)
 % ============================================================
 % Compilation (from project root):
 %   latexmk -pdf main.tex
+%   LATEXMK_SHELL_ESCAPE=0 latexmk -pdf main.tex
 %
 % Optional environment controls from latexmkrc:
 %   LATEXMK_ENGINE=xelatex        (default/enforced)
@@ -50,12 +53,34 @@
 \usepackage[
   no-apply-geometry,
   no-global-typesetting,
-  no-global-smallcaps-fix,
+  global-smallcaps-fix,
   local-smallcaps-fix,
   global-mainfont,
   svg-support,
   no-debug
 ]{ihedn-cover}
+
+% ----------------------------------------------------------------
+% Bibliography stack (BibLaTeX/Biber, style from subtree vendor/)
+% ----------------------------------------------------------------
+\usepackage{polyglossia}
+\setdefaultlanguage{french}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\makeatletter
+\def\input@path{{vendor/biblatex-sciences-po-fr/style/}}
+\makeatother
+\usepackage[
+  backend=biber,
+  style=vendor/biblatex-sciences-po-fr/style/sciencespo,
+  hyperref=true,
+  autolang=other
+]{biblatex}
+\addbibresource{vendor/biblatex-sciences-po-fr/bibliographies/articles.bib}
+\addbibresource{vendor/biblatex-sciences-po-fr/bibliographies/livres.bib}
+\addbibresource{vendor/biblatex-sciences-po-fr/bibliographies/online.bib}
+\addbibresource{vendor/biblatex-sciences-po-fr/bibliographies/rapports.bib}
+\addbibresource{vendor/biblatex-sciences-po-fr/bibliographies/theses.bib}
 
 % Example: use Arial for the full report + cover.
 % Uncomment and switch package option to no-mainfont-override.
@@ -72,6 +97,97 @@
 % Cover keys (all available keys are shown below)
 % ----------------------------------------------------------------
 % Header block (top-right), logo, title, report lines, subtitle, committee.
-\PageDeGardeIHEDN{header_1={Union-IHEDN},header_2={Association des auditeurs IHEDN},header_3={région Paris / Île de France},date={le 19 juin 2026},logo_path={Figures/logos_IHEDN/Logo-AR16},title={Crises majeures : quel rôle pour les citoyens engagés et les associations IHEDN ?},title_max_lines=2,title_fontsize={26.000pt},title_baselineskip={28.667pt},reportline_1={Rapport du Comité d'étude de l'Association régionale des auditeurs},reportline_2={de l'IHEDN région Paris / Île de France (AR 16)},subtitle={Satisfaire les besoins vitaux de la population en temps de crise. Pourquoi et comment s'engager dans l'amélioration de la résilience de la Nation ? Objectif à 5 ans.},committee={Comité d'étude, d'octobre 2025 à juin 2026, présidé par Valérie Arlé-Faivre, rapporté par Aurélien Duvignac-Rosa, composé de Pascal Bayot Duponchel, Jean-Jacques Cleynen, Valérie Cowan, Alain Fontan, Pierre-Marie Giard, Muriel Joyeux, Bruno Leray, Yves-Henri Renhas, Isabelle de Segonzac, Gérard Turck, Marie Danielle Vasquez-Duchêne.}}
+\PageDeGardeIHEDN{header_1={Union-IHEDN},header_2={Association des auditeurs IHEDN},header_3={région Paris / Île de France},date={le jour mois année n},logo_path={Figures/logos_IHEDN/Logo-AR16},title={Titre},title_max_lines=2,title_fontsize={26.000pt},title_baselineskip={28.667pt},reportline_1={Rapport du Comité d'étude de l'Association régionale des auditeurs},reportline_2={de l'IHEDN région Paris / Île de France (AR 16)},subtitle={},committee={Comité d'étude, de mois année n-1 à mois année n, présidé par Prénom Nom, rapporté par Prénom Nom, composé de Prénom Nom, Prénom Nom, Prénom Nom, etc.}}
+
+\clearpage
+\pagenumbering{Roman}
+\tableofcontents
+\clearpage
+\pagenumbering{arabic}
+
+\section{La rédaction du rapport}
+
+\begin{itemize}
+  \item Le mémoire fera entre 20 et 40 pages, en police Times New Roman, caractère 12, auxquelles se rajoutent les annexes.
+  \item Le rapport comprend un sommaire et s'organise en chapitres ou sections, qui traitent chacun un aspect de la démonstration générale.
+  \item Le rapport doit démontrer une thèse ou \textit{a minima} apporter une plus value: il es donc nécessaire de construire un plan démonstratif, qui permette d'argumenter en direction d'hypothèse formulée.
+  \item Si l'objectif est de défendre une thèse, l'énoncer clairement est une nécessité. Il faut également d'efforcer à étayer le raisonnement au moyen de preuves empiriques aussi précises, denses, et solides que possible.
+  \item Il ne faut pas chercher à masquer les lacunes des matériaux empiriques à disposition : il faut compenser ces faiblesses en croisant les différentes sources pour réunir un faisceau d'indices, mais en soulignant, lorsque c'est nécessaire le statut encore hypothétique de certaines des conclusions émises. Dans le cadre de ce travail exploratoire, c'est tout à fait acceptable.
+  \item A chaque chapitre ou section il est nécessaire de présenter des propositions concrètes et réalisables
+\end{itemize}
+
+\section{Références et bibliographie}
+
+La bibliographie doit suivre les points détaillés ci-dessous.
+
+\begin{itemize}
+
+  \item Le rapport doit obligatoirement comprendre des références et une bibliographie. \textbf{Il faut référencer avec la plus grande rigueur tous les travaux utilisés.}
+  \item Dans le cadre de ce travail, le référencement en note de bas de page en indiquant la référence \textit{in extenso} garanti une lisibilité optimale pour les relecteurs et une aisance de rédaction accrue.
+  \item Il faut impérativement établir une bibliographie complète des sources scientifiques en fin de volume en suivant le même mode de présentation.
+  \item Il est possible en cas de bibliographie importante (supérieure à 6 pages) de proposer un classement bibliographique (« études généralistes », «articles de presse », «articles universitaires », « ouvrages », etc.)
+\end{itemize}
+
+\newpage
+
+\subsection{Livres (imprimés ou \textit{e-book})}
+
+\fullcite{Benjamin:2018}
+
+\fullcite{Castanet:2023}
+
+\fullcite{Pilkington:1998}
+
+\subsection{Rapports (imprimés ou en ligne)}
+
+\fullcite{EC:2022:AAR}
+
+\fullcite{Claeys:2005:PolicyMix}
+
+\subsection{Chapitres d'ouvrage}
+
+\fullcite{Blancheton:2017:Crises:Online}
+
+\subsection{Articles de revue}
+
+\fullcite{Rinde:Rokkan:1959:Online}
+
+\subsection{Articles de presse (en ligne)}
+
+\fullcite{Lechner:2014:Eotone}
+
+\subsection{Thèses et mémoires (imprimé ou numérique)}
+
+\fullcite{Delanoue:2018}
+
+\subsection{Statistiques}
+
+\fullcite{GlobalWebIndex:2020}
+
+\subsection{Vidéos en ligne}
+
+\fullcite{Has:2016:Zotero}
+
+\subsection{Podcasts}
+
+\fullcite{FranceCulture:2023:Holodomor}
+
+\subsection{Pages web}
+
+\fullcite{PresidenceRepublique:2018:BoutiqueElysee}
+
+\newpage
+
+\printbibliography[heading=bibintoc,title={Bibliographie}]
+
+% ----------------------------------------------------------------
+% Notes d'usage:
+% - Le style bibliographique est dans:
+%   vendor/biblatex-sciences-po-fr/style/
+% - Ajouter des entrées dans references.bib (au niveau racine du repo).
+% - Compilation requise:
+%   latexmk -pdf main.tex
+%   (latexmkrc est configuré pour XeLaTeX + Biber).
+% ----------------------------------------------------------------
 
 \end{document}
