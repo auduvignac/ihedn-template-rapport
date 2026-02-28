@@ -1,4 +1,11 @@
 \ProvidesPackage{ihedn-cover}[2026/02/28 IHEDN cover page package]
+\RequirePackage{iftex}
+\ifXeTeX\else
+  \PackageError{ihedn-cover}
+    {This package requires XeLaTeX}
+    {Compile with XeLaTeX. For example: latexmk -pdf main.tex\MessageBreak
+     (with this project's latexmkrc), or run xelatex directly.}
+\fi
 
 % Package options to control host-document side effects.
 \newif\ifcoverapplygeometry
@@ -25,6 +32,7 @@
 \fi
 \RequirePackage{fontspec}
 \RequirePackage{graphicx}
+\RequirePackage{svg}
 \RequirePackage{tikz}
 \RequirePackage{ragged2e}
 \usetikzlibrary{calc}
@@ -141,6 +149,12 @@
     {\includegraphics[width=#3mm,height=#4mm]{#5}};%
 }
 
+\newcommand{\CoverPlaceSvg}[5]{%
+  \node[anchor=north west,inner sep=0pt,outer sep=0pt]
+    at ([xshift=#1mm,yshift=-#2mm]current page.north west)
+    {\includesvg[width=#3mm,height=#4mm,inkscapelatex=false]{#5}};%
+}
+
 \newcommand{\CoverDebugBox}[5]{%
   \draw[cyan!70!black,line width=0.15mm]
     ([xshift=#1mm,yshift=-#2mm]current page.north west)
@@ -249,7 +263,41 @@
 \cs_new_protected:Npn \CoverPlaceLogoIfSet
   {
     \tl_if_blank:VF \l_cover_logo_path_tl
-      { \CoverPlaceImage{19.451}{24.596}{32.052}{44.907}{\l_cover_logo_path_tl} }
+      {
+        \tl_set_eq:NN \l_tmpa_tl \l_cover_logo_path_tl
+        \tl_set:Nx \l_tmpb_tl { \tl_lower_case:n { \tl_use:N \l_tmpa_tl } }
+
+        \regex_match:nnTF { \.svg\Z } { \l_tmpb_tl }
+          {
+            \regex_replace_once:nnN { \.[sS][vV][gG]\Z } {} \l_tmpa_tl
+            \CoverPlaceSvg{19.451}{24.596}{32.052}{44.907}{\l_tmpa_tl}
+          }
+          {
+            \regex_match:nnTF { \.(pdf|png)\Z } { \l_tmpb_tl }
+              {
+                \CoverPlaceImage{19.451}{24.596}{32.052}{44.907}{\l_tmpa_tl}
+              }
+              {
+                \tl_set:Nx \l_tmpc_tl { \l_tmpa_tl .pdf }
+                \file_if_exist:nTF { \tl_use:N \l_tmpc_tl }
+                  { \CoverPlaceImage{19.451}{24.596}{32.052}{44.907}{\l_tmpc_tl} }
+                  {
+                    \tl_set:Nx \l_tmpc_tl { \l_tmpa_tl .png }
+                    \file_if_exist:nTF { \tl_use:N \l_tmpc_tl }
+                      { \CoverPlaceImage{19.451}{24.596}{32.052}{44.907}{\l_tmpc_tl} }
+                      {
+                        \tl_set:Nx \l_tmpc_tl { \l_tmpa_tl .svg }
+                        \file_if_exist:nTF { \tl_use:N \l_tmpc_tl }
+                          { \CoverPlaceSvg{19.451}{24.596}{32.052}{44.907}{\l_tmpa_tl} }
+                          {
+                            \PackageWarningNoLine{ihedn-cover}
+                              {Logo~path~'\l_tmpa_tl'~not~found.~Tried~.pdf,~.png,~.svg}
+                          }
+                      }
+                  }
+              }
+          }
+      }
   }
 \cs_new_protected:Npn \CoverDebugLogoBoxIfSet
   {

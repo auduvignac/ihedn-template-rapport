@@ -10,7 +10,7 @@ if (defined $engine && $engine ne 'xelatex') {
       "Set LATEXMK_ENGINE=xelatex (or unset it) and rerun latexmk.\n";
 }
 
-$xelatex = 'xelatex -synctex=1 -interaction=nonstopmode -file-line-error %O %S';
+$xelatex = 'xelatex -shell-escape -synctex=1 -interaction=nonstopmode -file-line-error %O %S';
 $pdf_mode = 5;
 # Compatibility: `latexmk -pdf` still runs XeLaTeX.
 $pdflatex = $xelatex;
