@@ -50,6 +50,8 @@
 
 % Coordinate system: origin top-left; x right; y down; units in mm.
 \newcommand{\CoverXRight}{195.0}
+\newcommand{\CoverTitleWidth}{175.741}
+\newcommand{\CoverTitleWidthDim}{175.741mm}
 
 \newcommand{\CoverLine}[4]{%
   \node[
@@ -86,7 +88,7 @@
 }
 
 \newcommand{\CoverTitleBox}[1]{%
-  \CoverTextBox{13.208}{87.107}{175.741}{center}{\bfseries\CoverTitleFontSpec}{#1}%
+  \CoverTextBox{13.208}{87.107}{\CoverTitleWidth}{center}{\bfseries\CoverTitleFontSpec}{#1}%
 }
 
 \newcommand{\CoverSubtitleBox}[1]{%
@@ -150,7 +152,7 @@
   {
     \vbox_set:Nn \l_cover_title_measure_box
       {
-        \hsize=175.741mm
+        \hsize=\CoverTitleWidthDim
         \parindent=0pt
         \centering
         \bfseries\fontsize{\l_cover_title_fontsize_tl}{\l_cover_title_baselineskip_tl}\selectfont
