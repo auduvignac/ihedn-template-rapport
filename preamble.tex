@@ -38,7 +38,8 @@
   \setmainfont{TeX Gyre Termes}%
   \renewcommand{\CoverFontFallbackNote}{fallback=TeX Gyre Termes (Times New Roman missing)}%
 }
-\newfontfamily\covercalibri{Times New Roman}
+% Dedicated font hook for cover page number (currently Times New Roman).
+\newfontfamily\coverpagenumberfont{Times New Roman}
 % Times New Roman has no OpenType small-caps feature in this setup.
 % Neutralize \textsc/\scshape to avoid TU/.../sc font-shape warnings.
 \renewcommand{\textsc}[1]{\MakeUppercase{#1}}
@@ -243,7 +244,7 @@
 \CoverCommitteeBoxJustified{15.028}{236.094}{180.013}{\CoverCommitteeFontSpec}{\CoverCommitteeField}
 
 % --- Page number ---
-%\CoverLine{192.871}{274.908}{\covercalibri\fontsize{12.000pt}{12.000pt}\selectfont}{1}
+%\CoverLine{192.871}{274.908}{\coverpagenumberfont\fontsize{12.000pt}{12.000pt}\selectfont}{1}
 
 \ifcoverdebug
   % 1 mm grid + emphasized 10 mm grid
