@@ -84,9 +84,17 @@
 
 % Times New Roman has no OpenType small-caps feature in this setup.
 % Keep fix local by default to avoid changing host document behavior.
+\newcommand{\CoverApplySmallCapsFix}{%
+  \renewcommand{\textsc}[1]{\MakeUppercase{##1}}%
+  \renewcommand{\scshape}{\upshape}%
+}
 \ifcoverglobalsmallcapsfix
-  \renewcommand{\textsc}[1]{\MakeUppercase{#1}}
-  \renewcommand{\scshape}{\upshape}
+  \PackageWarningNoLine{ihedn-cover}{%
+    Option~global-smallcaps-fix~is~intrusive:~it~redefines~\string\textsc\space and
+    \string\scshape\space globally.\MessageBreak
+    Prefer~local-smallcaps-fix~for~cover-only~scope%
+  }%
+  \CoverApplySmallCapsFix
 \fi
 
 \newif\ifcoverdebug
@@ -364,8 +372,7 @@
 \fi
 \CoverApplyTypesettingFreeze
 \ifcoverlocalsmallcapsfix
-  \renewcommand{\textsc}[1]{\MakeUppercase{##1}}%
-  \renewcommand{\scshape}{\upshape}%
+  \CoverApplySmallCapsFix
 \fi
 \ifcoverapplygeometry
   \newgeometry{
