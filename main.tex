@@ -1,123 +1,56 @@
 \documentclass[12pt,a4paper]{article}
-\usepackage{array}
-\usepackage{geometry}
-\geometry{a4paper, margin=1in}
-\usepackage{graphicx}
+\PassOptionsToPackage{hidelinks}{hyperref}
 
-% ============================================================
-% IHEDN COVER TEMPLATE (XeLaTeX)
-% ============================================================
-% Compilation (from project root):
-%   latexmk -pdf main.tex
-%   LATEXMK_SHELL_ESCAPE=0 latexmk -pdf main.tex
-%
-% Optional environment controls from latexmkrc:
-%   LATEXMK_ENGINE=xelatex        (default/enforced)
-%   LATEXMK_SHELL_ESCAPE=1|0      (default 1, needed for SVG conversion)
-%
-% Required package for this template:
-%   \usepackage{ihedn-cover}
-%
-% Note: ihedn-cover already loads needed internal packages
-% (fontspec, graphicx, tikz, ragged2e, optional svg).
-% ============================================================
+% Shared IHEDN report formatting: cover, typography, tables and bibliography.
+\usepackage{ihedn-report}
 
-% ----------------------------------------------------------------
-% Package options (documented)
-% ----------------------------------------------------------------
-% Geometry scope:
-%   apply-geometry            -> force A4 + zero margins while cover is built
-%   no-apply-geometry         -> do not alter host geometry (default)
-%
-% Typesetting freeze:
-%   global-typesetting        -> apply freeze globally (intrusive)
-%   no-global-typesetting     -> no global freeze (default)
-%
-% Small-caps handling:
-%   local-smallcaps-fix       -> \textsc -> \MakeUppercase only inside cover (default)
-%   no-local-smallcaps-fix    -> disable local fix
-%   global-smallcaps-fix      -> global override (intrusive)
-%   no-global-smallcaps-fix   -> disable global fix (default)
-%
-% Main font handling:
-%   global-mainfont           -> set Times New Roman globally (default)
-%   local-mainfont            -> set Times only during cover rendering
-%   no-mainfont-override      -> keep host document main font
-%
-% SVG support:
-%   svg-support               -> enable SVG logos (default, needs shell-escape)
-%   no-svg-support            -> disable SVG path handling (pdf/png only)
-%
-% Debug overlay:
-%   debug                     -> show mm grid + bounding boxes on cover
-%   no-debug                  -> hide debug overlay (default)
-% ----------------------------------------------------------------
-\usepackage[
-  no-apply-geometry,
-  no-global-typesetting,
-  global-smallcaps-fix,
-  local-smallcaps-fix,
-  global-mainfont,
-  svg-support,
-  no-debug
-]{ihedn-cover}
-
-% ----------------------------------------------------------------
-% Bibliography stack (BibLaTeX/Biber, style from subtree vendor/)
-% ----------------------------------------------------------------
-\usepackage{polyglossia}
-\setdefaultlanguage{french}
-\makeatletter
-\g@addto@macro\captionsfrench{%
-  \renewcommand{\tablename}{Tableau}%
-  \renewcommand{\figurename}{Figure}%
-}
-\makeatother
-\usepackage{csquotes}
-\usepackage{hyperref}
-\makeatletter
-\let\ihedn@orig@input@path\input@path
-\def\input@path{{vendor/biblatex-sciences-po-fr/style/}}
-\makeatother
-\usepackage[
-  backend=biber,
-  style=sciencespo,
-  hyperref=true,
-  autolang=other
-]{biblatex}
-\makeatletter
-\let\input@path\ihedn@orig@input@path
-\makeatother
+% Example bibliography supplied with the template.
 \addbibresource{vendor/biblatex-sciences-po-fr/bibliographies/articles.bib}
 \addbibresource{vendor/biblatex-sciences-po-fr/bibliographies/livres.bib}
 \addbibresource{vendor/biblatex-sciences-po-fr/bibliographies/online.bib}
 \addbibresource{vendor/biblatex-sciences-po-fr/bibliographies/rapports.bib}
 \addbibresource{vendor/biblatex-sciences-po-fr/bibliographies/theses.bib}
 
-% Example: use Arial for the full report + cover.
-% Uncomment and switch package option to no-mainfont-override.
-% \setmainfont{Arial}[
-%   UprightFont    = *,
-%   BoldFont       = * Bold,
-%   ItalicFont     = * Italic,
-%   BoldItalicFont = * Bold Italic
-% ]
+\usepackage[acronym,toc,section=section]{glossaries}
+\makeglossaries
+\newacronym{codir}{CODIR}{Comité de direction}
+\newacronym{retex}{RETEX}{Retour d expérience}
+\newacronym{rgpd}{RGPD}{Règlement général sur la protection des données}
+\renewcommand*{\acronymname}{Liste des acronymes}
+
+% Shared data and rendering used by the template cover example.
+\input{cover-template}
 
 \begin{document}
 
 % ----------------------------------------------------------------
-% Cover keys (all available keys are shown below)
+% Cover shared with cover-example.tex.
 % ----------------------------------------------------------------
-% Header block (top-right), logo, title, report lines, subtitle, committee.
-\PageDeGardeIHEDN{header_1={Union-IHEDN},header_2={Association des auditeurs IHEDN},header_3={région Paris / Île de France},date={le jour mois année n},logo_path={Figures/logos_IHEDN/Logo-AR16},title={Titre},title_max_lines=2,title_fontsize={26.000pt},title_baselineskip={28.667pt},reportline_1={Rapport du Comité d'étude de l'Association régionale des auditeurs},reportline_2={de l'IHEDN région Paris / Île de France (AR 16)},subtitle={},committee={Comité d'étude, de mois année n-1 à mois année n, présidé par Prénom Nom, rapporté par Prénom Nom, composé de Prénom Nom, Prénom Nom, Prénom Nom, etc.}}
+\IhednTemplateCover
 
-\clearpage
+% Front matter mirrors the structure of a complete IHEDN report.
 \pagenumbering{Roman}
+\addcontentsline{toc}{section}{Résumé}
+\section*{Résumé}
+Ce document fournit un exemple complet des éléments disponibles pour rédiger un rapport IHEDN : page de garde, propositions, sommaire, acronymes, figures, tableaux, annexes et bibliographie.
+
+\listofpropositions
+\clearpage
 \tableofcontents
-\newpage
+\clearpage
+\printglossary[type=\acronymtype,title={Liste des acronymes}]
+\clearpage
+\addcontentsline{toc}{section}{Table des figures}
+\clearpage
 \listoffigures
-\newpage
+\clearpage
+\addcontentsline{toc}{section}{Liste des tableaux}
+\begingroup
+\makeatletter
+\renewcommand{\@pnumwidth}{3em}
+\makeatother
 \listoftables
+\endgroup
 \clearpage
 \pagenumbering{arabic}
 
@@ -132,6 +65,21 @@
   \item À chaque chapitre ou section, il est nécessaire de présenter des propositions concrètes et réalisables.
 \end{itemize}
 
+Le corps d'un rapport peut employer des acronymes tels que le \acrshort{codir}, le \gls{retex} ou le \gls{rgpd}. Une référence peut être présentée directement en note de bas de page\footcite{EC:2022:AAR}.
+
+\begin{proposition}{Formuler une recommandation claire et réalisable}
+Chaque proposition doit être reliée au diagnostic et préciser les acteurs concernés, les moyens nécessaires et les résultats attendus.
+\end{proposition}
+
+\propositiongroup{Décliner une proposition structurante}
+\begin{subproposition}{Préciser la première modalité de mise en œuvre}
+Présenter une action vérifiable, son responsable et son calendrier.
+\end{subproposition}
+\begin{subproposition}{Prévoir le suivi et l'évaluation}
+Définir les critères qui permettront d'apprécier les effets de la proposition.
+\end{subproposition}
+
+
 \newpage
 
 \section{Insertion de figures}
@@ -145,6 +93,104 @@ Chaque figure doit être référencée dans le texte au moyen de son numéro~: \
     \caption{Titre explicite de la figure.}
     \label{fig:exemple}
 \end{figure}
+
+
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-a.pdf}
+        \caption{Première illustration.}
+        \label{fig:exemple-a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{example-image-b.pdf}
+        \caption{Seconde illustration.}
+        \label{fig:exemple-b}
+    \end{subfigure}
+    \caption{Exemple de figure composée de deux sous-figures.}
+    \label{fig:exemple-compose}
+\end{figure}
+
+\begin{table}[H]
+    \centering
+    \StyledTableSetup
+    \begin{tabularx}{\linewidth}{@{}p{0.28\linewidth}Y Y@{}}
+        \toprule
+        \textbf{Étape} & \textbf{Objectif} & \textbf{Livrable} \\
+        \midrule
+        Cadrage & Définir le périmètre et la méthode. & Note de cadrage validée. \\
+        Analyse & Croiser les données et les entretiens. & Diagnostic argumenté. \\
+        Proposition & Formuler une réponse réalisable. & Plan d'action et indicateurs. \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Exemple de tableau structuré.}
+    \label{tab:exemple-structure}
+\end{table}
+
+
+
+\section{Diagrammes et planification}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=18mm,
+        block/.style={draw,rounded corners,align=center,minimum width=38mm,minimum height=10mm}
+    ]
+        \node[block] (diagnostic) {Diagnostic};
+        \node[block,right=of diagnostic] (decision) {Décision};
+        \node[block,right=of decision] (action) {Mise en œuvre};
+        \draw[-{Stealth}] (diagnostic) -- (decision);
+        \draw[-{Stealth}] (decision) -- (action);
+    \end{tikzpicture}
+    \caption{Exemple de chaîne de décision réalisée avec TikZ.}
+    \label{fig:exemple-tikz}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{ganttchart}[
+        hgrid,
+        vgrid,
+        x unit=1.45cm,
+        y unit chart=0.65cm,
+        bar height=0.55
+    ]{1}{6}
+        \gantttitle{Calendrier prévisionnel}{6} \\
+        \gantttitlelist{1,...,6}{1} \\
+        \ganttbar{Cadrage}{1}{2} \\
+        \ganttbar{Analyse}{2}{4} \\
+        \ganttbar{Restitution}{5}{6}
+    \end{ganttchart}
+    \caption{Exemple de planification réalisée avec PGF Gantt.}
+    \label{fig:exemple-gantt}
+\end{figure}
+
+\begin{landscape}
+\section{Tableau long en orientation paysage}
+\StyledTableSetup
+\begin{longtable}{@{}p{0.18\linewidth}p{0.34\linewidth}p{0.34\linewidth}@{}}
+    \caption{Exemple de tableau long pouvant se poursuivre sur plusieurs pages.}
+    \label{tab:exemple-long} \\
+    \toprule
+    \textbf{Phase} & \textbf{Travaux} & \textbf{Résultats attendus} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{Phase} & \textbf{Travaux} & \textbf{Résultats attendus} \\
+    \midrule
+    \endhead
+    Préparation & Définition du périmètre, des objectifs et des responsabilités. & Gouvernance et calendrier validés. \\
+    Collecte & Réunion des données documentaires et conduite des entretiens. & Corpus vérifié et traçable. \\
+    Analyse & Croisement des sources, formulation du diagnostic et discussion des limites. & Constats argumentés et hiérarchisés. \\
+    Proposition & Élaboration des recommandations et de leurs modalités de suivi. & Plan d'action exploitable. \\
+    \bottomrule
+\end{longtable}
+\end{landscape}
 
 \newpage
 
@@ -247,19 +293,41 @@ et alléger la lecture.
 
 \fullcite{PresidenceRepublique:2018:BoutiqueElysee}
 
-\newpage
+\clearpage
+\appendix
+\section{Exemple d'annexe}
+Les annexes accueillent les documents complémentaires nécessaires à la compréhension du rapport sans alourdir le corps de la démonstration.
 
-\printbibliography[heading=bibintoc,title={Bibliographie}]
+\subsection{Inclusion d'un document PDF}
+L'utilitaire partagé peut intégrer toutes les pages d'un PDF dans des cadres homogènes :
 
-% ----------------------------------------------------------------
-% Notes d'usage:
-% - Le style bibliographique est dans:
-%   vendor/biblatex-sciences-po-fr/style/
-% - Ajouter des entrées dans les fichiers bibliographiques chargés ci-dessus:
-%   vendor/biblatex-sciences-po-fr/bibliographies/{articles,livres,online,rapports,theses}.bib
-% - Compilation requise:
-%   latexmk -pdf main.tex
-%   (latexmkrc est configuré pour XeLaTeX + Biber).
-% ----------------------------------------------------------------
+\IhednRenderPdfPagesInBoxes{reference/page-de-garde.pdf}
+
+\clearpage
+\addcontentsline{toc}{section}{Références bibliographiques}
+\printbibheading[title={Références bibliographiques}]
+
+\addcontentsline{toc}{subsection}{Ouvrages}
+\newrefcontext[sorting=nyt]
+\printbibliography[type=book,title={Ouvrages},heading=subbibliography]
+\printbibliography[type=incollection,title={Chapitres d'ouvrage},heading=subbibliography]
+
+\addcontentsline{toc}{subsection}{Articles de recherche}
+\newrefcontext[sorting=nyt]
+\printbibliography[type=article,title={Articles de recherche},heading=subbibliography]
+
+\addcontentsline{toc}{subsection}{Rapports institutionnels}
+\newrefcontext[sorting=nyt]
+\printbibliography[type=report,title={Rapports institutionnels},heading=subbibliography]
+
+\addcontentsline{toc}{subsection}{Ressources en ligne}
+\newrefcontext[sorting=nyt]
+\printbibliography[type=online,title={Ressources en ligne},heading=subbibliography]
+
+\addcontentsline{toc}{subsection}{Thèses et mémoires}
+\newrefcontext[sorting=nyt]
+\printbibliography[type=thesis,title={Thèses et mémoires},heading=subbibliography]
+
+% Compilation: LATEXMK_SHELL_ESCAPE=0 latexmk -pdf main.tex
 
 \end{document}
