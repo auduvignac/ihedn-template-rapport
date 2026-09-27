@@ -58,8 +58,18 @@ if (!cover_has_xelatex()) {
       "Install TeX Live XeTeX and retry (example: texlive-xetex).\n";
 }
 
+add_cus_dep('glo', 'gls', 0, 'makeglossaries');
+add_cus_dep('acn', 'acr', 0, 'makeglossaries');
+
+sub makeglossaries {
+    my ($base_name) = @_;
+    return system("makeglossaries \"$base_name\"");
+}
+
 # Nettoyage additionnel
-$clean_ext .= ' synctex.gz bbl bcf run.xml';
+$clean_ext .= ' acn acr alg glg glo gls ist lop synctex.gz bbl bcf run.xml xdv ';
+
+
 
 # Dossier de sortie (optionnel)
 # $out_dir = 'build';
