@@ -1,0 +1,351 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ihedn-report}[2026/09/27 v1.0 IHEDN report formatting]
+
+
+\RequirePackage{array}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\RequirePackage{multirow}
+\RequirePackage{geometry}
+\geometry{a4paper, margin=1in}
+\RequirePackage{graphicx}
+\RequirePackage{float}
+\RequirePackage{pgffor}
+\RequirePackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\RequirePackage{pgfgantt}
+\RequirePackage{pdflscape}
+\RequirePackage{enumitem}
+\RequirePackage{booktabs}
+\RequirePackage{longtable}
+\RequirePackage{ragged2e}
+\RequirePackage{tabularx}
+\RequirePackage{xparse}
+\RequirePackage{ltablex}
+\RequirePackage{xltabular}
+\RequirePackage{subcaption}
+\captionsetup[table]{position=bottom,skip=6pt}
+\captionsetup[figure]{position=bottom,skip=6pt}
+\RequirePackage{needspace}
+
+\let\IhednOriginalSection\section
+\RenewDocumentCommand{\section}{s o m}{%
+  \Needspace{12\baselineskip}%
+  \IfBooleanTF{#1}{%
+    \IhednOriginalSection*{#3}%
+  }{%
+    \IfNoValueTF{#2}{%
+      \IhednOriginalSection{#3}%
+    }{%
+      \IhednOriginalSection[#2]{#3}%
+    }%
+  }%
+}
+
+\let\IhednOriginalSubsection\subsection
+\RenewDocumentCommand{\subsection}{s o m}{%
+  \Needspace{10\baselineskip}%
+  \IfBooleanTF{#1}{%
+    \IhednOriginalSubsection*{#3}%
+  }{%
+    \IfNoValueTF{#2}{%
+      \IhednOriginalSubsection{#3}%
+    }{%
+      \IhednOriginalSubsection[#2]{#3}%
+    }%
+  }%
+}
+
+\let\IhednOriginalSubsubsection\subsubsection
+\RenewDocumentCommand{\subsubsection}{s o m}{%
+  \Needspace{8\baselineskip}%
+  \IfBooleanTF{#1}{%
+    \IhednOriginalSubsubsection*{#3}%
+  }{%
+    \IfNoValueTF{#2}{%
+      \IhednOriginalSubsubsection{#3}%
+    }{%
+      \IhednOriginalSubsubsection[#2]{#3}%
+    }%
+  }%
+}
+
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+
+\newcommand{\StyledTableSetup}{%
+  \footnotesize
+  \renewcommand{\arraystretch}{1.2}%
+  \setlength{\tabcolsep}{4pt}%
+}
+
+
+% ============================================================
+% IHEDN COVER TEMPLATE (XeLaTeX)
+% ============================================================
+% Compilation (from project root):
+%   latexmk -pdf main.tex
+%   LATEXMK_SHELL_ESCAPE=0 latexmk -pdf main.tex
+%
+% Optional environment controls from latexmkrc:
+%   LATEXMK_ENGINE=xelatex        (default/enforced)
+%   LATEXMK_SHELL_ESCAPE=1|0      (default 1, needed for SVG conversion)
+%
+% Required package for this template:
+%   \usepackage{ihedn-cover}
+%
+% Note: ihedn-cover already loads needed internal packages
+% (fontspec, graphicx, tikz, ragged2e, optional svg).
+% ============================================================
+
+% ----------------------------------------------------------------
+% Package options (documented)
+% ----------------------------------------------------------------
+% Geometry scope:
+%   apply-geometry            -> force A4 + zero margins while cover is built
+%   no-apply-geometry         -> do not alter host geometry (default)
+%
+% Typesetting freeze:
+%   global-typesetting        -> apply freeze globally (intrusive)
+%   no-global-typesetting     -> no global freeze (default)
+%
+% Small-caps handling:
+%   local-smallcaps-fix       -> \textsc -> \MakeUppercase only inside cover (default)
+%   no-local-smallcaps-fix    -> disable local fix
+%   global-smallcaps-fix      -> global override (intrusive)
+%   no-global-smallcaps-fix   -> disable global fix (default)
+%
+% Main font handling:
+%   global-mainfont           -> set Times New Roman globally (default)
+%   local-mainfont            -> set Times only during cover rendering
+%   no-mainfont-override      -> keep host document main font
+%
+% SVG support:
+%   svg-support               -> enable SVG logos (default, needs shell-escape)
+%   no-svg-support            -> disable SVG path handling (pdf/png only)
+%
+% Debug overlay:
+%   debug                     -> show mm grid + bounding boxes on cover
+%   no-debug                  -> hide debug overlay (default)
+% ----------------------------------------------------------------
+\RequirePackage[
+  no-apply-geometry,
+  no-global-typesetting,
+  global-smallcaps-fix,
+  local-smallcaps-fix,
+  global-mainfont,
+  svg-support,
+  no-debug
+]{ihedn-cover}
+
+% ----------------------------------------------------------------
+% Bibliography stack (BibLaTeX/Biber, style from subtree vendor/)
+% ----------------------------------------------------------------
+\RequirePackage{polyglossia}
+\setdefaultlanguage{french}
+\makeatletter
+\g@addto@macro\captionsfrench{%
+  \renewcommand{\tablename}{Tableau}%
+  \renewcommand{\figurename}{Figure}%
+}
+\makeatother
+\RequirePackage{csquotes}
+\RequirePackage{xurl}
+\RequirePackage{hyperref}
+\RequirePackage[bottom]{footmisc}
+\interfootnotelinepenalty=10000
+\setlength{\skip\footins}{12pt plus 4pt minus 2pt}
+\makeatletter
+\let\ihedn@orig@input@path\input@path
+\def\input@path{{vendor/biblatex-sciences-po-fr/style/}}
+\makeatother
+\RequirePackage[
+  backend=biber,
+  style=sciencespo,
+  hyperref=true,
+  autolang=other
+]{biblatex}
+\AtBeginBibliography{\sloppy\setlength{\emergencystretch}{3em}}
+\makeatletter
+\let\input@path\ihedn@orig@input@path
+\makeatother
+
+% ----------------------------------------------------------------
+% tcolorbox
+% ----------------------------------------------------------------
+\RequirePackage[most]{tcolorbox}
+\tcbuselibrary{breakable}
+
+% Example: use Arial for the full report + cover.
+% Uncomment and switch package option to no-mainfont-override.
+% \setmainfont{Arial}[
+%   UprightFont    = *,
+%   BoldFont       = * Bold,
+%   ItalicFont     = * Italic,
+%   BoldItalicFont = * Bold Italic
+% ]
+
+%==================================================
+% Liste des propositions
+%==================================================
+
+\makeatletter
+
+\newcommand{\listpropositionname}{Liste des propositions}
+
+\newcommand{\listofpropositions}{
+  \section*{\listpropositionname}
+  \addcontentsline{toc}{section}{\listpropositionname}
+  \@starttoc{lop}
+}
+
+\newcommand*\propositionnumberline[1]{\hb@xt@\@tempdima{\hfil#1\enspace}}
+\newcommand*\l@proposition[2]{%
+  \begingroup
+  \let\numberline\propositionnumberline
+  \@dottedtocline{1}{0pt}{6.6em}{#1}{#2}%
+  \endgroup
+}
+\newcommand*\l@subproposition[2]{%
+  \begingroup
+  \let\numberline\propositionnumberline
+  \@dottedtocline{2}{1.5em}{7.8em}{#1}{#2}%
+  \endgroup
+}
+
+\makeatother
+
+%==================================================
+% Compteur des propositions
+%==================================================
+
+\newcounter{proposition}
+\newcounter{subproposition}[proposition]
+\renewcommand{\thesubproposition}{\theproposition.\arabic{subproposition}}
+
+%==================================================
+% Style graphique des propositions
+%==================================================
+
+\newtcolorbox{propositionbox}[2][]{
+  lower separated=false,
+  colback=white!80!gray,
+  colframe=white!20!black,
+  fonttitle=\bfseries,
+  colbacktitle=white!30!gray,
+  coltitle=black,
+  enhanced,
+  sharp corners,
+  attach boxed title to top left={
+    xshift=0.5cm,
+    yshift=-2mm
+  },
+  title=#2,
+  #1
+}
+
+%==================================================
+% Environnement proposition
+%==================================================
+
+\newenvironment{proposition}[1]
+{
+  \refstepcounter{proposition}
+
+  \addcontentsline{lop}{proposition}{%
+    \protect\numberline{Proposition~\theproposition.}#1%
+  }
+
+  \begin{propositionbox}
+  {Proposition~\theproposition~: #1}
+}
+{
+  \end{propositionbox}
+}
+
+\newcommand{\propositiongroup}[1]{%
+  \refstepcounter{proposition}%
+  \setcounter{subproposition}{0}%
+  \addcontentsline{lop}{proposition}{%
+    \protect\numberline{Proposition~\theproposition.}#1%
+  }%
+}
+
+\newenvironment{subproposition}[1]
+{
+  \refstepcounter{subproposition}
+
+  \addcontentsline{lop}{subproposition}{%
+    \protect\numberline{Proposition~\thesubproposition.}#1%
+  }
+
+  \begin{propositionbox}
+  {Proposition~\thesubproposition~: #1}
+}
+{
+  \end{propositionbox}
+}
+
+% Renommage Liste des figures en Table des figures
+\addto\captionsfrench{%
+  \renewcommand{\listfigurename}{Table des figures}
+}
+
+\newcommand{\heure}[2]{{\NoAutoSpacing #1:#2}}
+
+\DeclareFieldFormat[misc]{title}{#1}
+
+% Activer ce package avec l'option none retire la césure.
+%\usepackage[none]{hyphenat}
+
+\RequirePackage{adjustbox}
+\RequirePackage{pdfpages}
+
+\makeatletter
+\newcommand{\IhednSetPdfPageCount}[2]{%
+  \begingroup
+  \edef\ihedn@pdfpath{#2}%
+  \IfFileExists{\ihedn@pdfpath}{%
+    \ifXeTeX
+      \global#1=\XeTeXpdfpagecount "\ihedn@pdfpath" %
+    \else
+      \ifLuaTeX
+        \saveimageresource{\ihedn@pdfpath}%
+        \global#1=\lastsavedimageresourcepages\relax
+      \else
+        \pdfximage{\ihedn@pdfpath}%
+        \global#1=\pdflastximagepages\relax
+      \fi
+    \fi
+  }{%
+    \PackageError{ihedn-report}
+      {PDF file `\ihedn@pdfpath' not found or unreadable}
+      {The macro \string\IhednSetPdfPageCount\space was called with\MessageBreak
+       a missing or unreadable PDF file.\MessageBreak
+       Check the path `\ihedn@pdfpath' and try again.}%
+    \global#1=0\relax
+  }%
+  \endgroup
+}
+\makeatother
+
+\newcount\IhednIncludedPdfPageCount
+\newcommand{\IhednRenderPdfPagesInBoxes}[1]{%
+  \IhednSetPdfPageCount{\IhednIncludedPdfPageCount}{#1}%
+  \foreach \IhednIncludedPdfPage in {1,...,\the\IhednIncludedPdfPageCount}{%
+    \begin{tcolorbox}[
+      colback=gray!5,
+      colframe=black,
+      boxrule=0.5pt,
+      arc=3mm
+    ]
+    \centering
+    \includegraphics[page=\IhednIncludedPdfPage,width=0.95\textwidth]{#1}
+    \end{tcolorbox}
+    \ifnum\IhednIncludedPdfPage<\IhednIncludedPdfPageCount
+      \clearpage
+    \fi
+  }%
+}
+
+\RequirePackage{tablefootnote}
+
+\endinput

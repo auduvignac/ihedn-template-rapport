@@ -1,0 +1,25 @@
+% Shared cover definition used by main.tex and cover-example.tex.
+\newcommand{\IhednTemplateCommittee}{Comité d'étude, de mois AAAA à mois AAAA, composé de : Monsieur / Madame Nom Prénom, \textit{président ou présidente} ; Monsieur / Madame Nom Prénom, \textit{rapporteur ou rapporteure} ; Monsieur / Madame Nom Prénom ; Monsieur / Madame Nom Prénom ; Monsieur / Madame Nom Prénom.}
+
+\newcommand{\IhednTemplateCover}{%
+  % Citation optionnelle : décommenter et adapter la ligne suivante si nécessaire.
+  % \Citation{Texte de la citation}[Auteur de la citation]
+  \President{Monsieur / Madame Nom Prénom}{Président ou Présidente du comité}%
+  \Rapporteur{Monsieur / Madame Nom Prénom}{Rapporteur ou Rapporteure du comité}%
+  \PageDeGardeIHEDN{
+    header_1={Union-IHEDN},
+    header_2={Association des auditeurs IHEDN},
+    header_3={région Paris / Île de France},
+    association_line={AR~16 : Association régionale Paris Île de France},
+    committee_label={Comité de rédaction de l'AR~16},
+    date={Soumis le : JJ mois AAAA},
+    logo_path={Figures/logos_IHEDN/Logo_AR_16_PARIS_IDF.jpg},
+    title={Titre du rapport : sous-titre éventuel},
+    title_max_lines=2,
+    title_fontsize={26.000pt},
+    title_baselineskip={28.667pt},
+    forum_line_1={Contribution pour le Forum des Études de l'UNION -- IHEDN AAAA},
+    forum_line_2={{\itshape\enquote{Esprit de Défense \& Engagement dans la France d'aujourd'hui}}},
+    committee={\IhednTemplateCommittee}
+  }%
+}
