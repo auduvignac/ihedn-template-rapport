@@ -1,0 +1,200 @@
+\documentclass[12pt,a4paper]{article}
+\PassOptionsToPackage{hidelinks}{hyperref}
+\usepackage{ihedn-report}
+\addbibresource{bibliographies/bib/rapport.bib}
+
+\usepackage[acronym,toc,section=section]{glossaries}
+\makeglossaries
+\input{common/glossaire}
+\renewcommand*{\acronymname}{Liste des acronymes}
+
+% Terminologie institutionnelle harmonisée
+\newcommand{\UnionIHEDN}{Union-IHEDN}
+\newcommand{\AssociationUnionIHEDN}{association de l'\UnionIHEDN}
+\newcommand{\AssociationsUnionIHEDN}{associations de l'\UnionIHEDN}
+\newcommand{\AssociationsRegionalesIHEDN}{associations régionales de l'\UnionIHEDN}
+\newcommand{\AssociationRegionaleIDF}{Association régionale Paris Île-de-France}
+\newcommand{\ARSeize}{AR~16}
+
+\begin{document}
+
+\Citation{Savoir pour prévoir, afin de pouvoir}[Auguste Comte]
+\President{Madame Valérie Arlé-Faivre}{Présidente du comité}
+\Rapporteur{Monsieur Aurélien Duvignac-Rosa}{Rapporteur du comité}
+
+% ----------------------------------------------------------------
+% Cover keys (all available keys are shown below)
+% ----------------------------------------------------------------
+% Association line, logo, title, forum lines (forum_line_1/2/3), subtitle, citation, president, rapporteur, committee.
+\PageDeGardeIHEDN{
+    header_1={\UnionIHEDN},
+    header_2={Association des auditeurs IHEDN},
+    header_3={région Paris / Île de France},
+    association_line={AR~16 : Association régionale Paris Île de France},
+    %association_president={Présidente : Madame Coralie Noël},
+    committee_label={Comité de rédaction de l'AR~16},
+    date={Soumis le : 30 juin 2026},
+    logo_path={../../Figures/logos_IHEDN/Logo_AR_16_PARIS_IDF.jpg},
+    title={Crises majeures : quel rôle pour les citoyens engagés et les associations IHEDN ?},
+    title_max_lines=2,
+    title_fontsize={26.000pt},
+    title_baselineskip={28.667pt},
+    forum_line_1={Contribution pour le Forum des Études de l'UNION -- IHEDN 2026},
+    forum_line_2={{\itshape\enquote{Esprit de Défense \& Engagement dans la France d'aujourd'hui}}},
+    % Ligne provisoire : à supprimer ou commenter si le lieu et la date changent.
+    %forum_line_3={Paris, JJ mois 2026.},
+    committee={\input{common/membres}}
+}
+
+% --- Pages liminaires en chiffres romains ---
+\pagenumbering{Roman}
+
+\addcontentsline{toc}{section}{Résumé}
+\section*{Résumé}
+
+\input{sections/resume.tex}
+
+\listofpropositions
+
+\clearpage
+
+\tableofcontents
+
+\clearpage
+
+\printglossary[type=\acronymtype,title={Liste des acronymes}]
+
+\clearpage
+
+\addcontentsline{toc}{section}{Table des figures}
+
+\clearpage
+
+\listoffigures
+
+\clearpage
+
+\addcontentsline{toc}{section}{Liste des tableaux}
+
+\begingroup
+\makeatletter
+\renewcommand{\@pnumwidth}{3em}
+\makeatother
+\listoftables
+\endgroup
+
+\clearpage
+
+% --- Corps du document en chiffres arabes ---
+\pagenumbering{arabic}
+
+\section{Introduction}
+
+\input{sections/introduction.tex}
+
+\section{Cadre général et enjeux contemporains}
+
+\input{sections/cadrage_et_enjeux.tex}
+
+\section{Une contribution de l'\ARSeize{} en appui aux autorités publiques}
+
+\input{sections/positionnement_ar16.tex}
+
+\section{Temporalité de la contribution des associations dans le cycle de gestion de crise}
+
+\input{sections/temporalite_engagement.tex}
+
+\section{Proposition structurante : le questionnaire}
+
+\input{sections/proposition_structurante.tex}
+
+\section{Plan prévisionnel de mise en \oe{}uvre du questionnaire}
+
+\input{sections/plan_previsionnel.tex}
+
+\section{Conclusion}
+
+\input{sections/conclusion.tex}
+
+\clearpage
+
+\addtocontents{toc}{\protect\newpage}
+\appendix
+\section{Figures complémentaires}
+\label{annexe:figures_complementaires}
+
+\input{annexes/figures_complementaires.tex}
+
+\section{Évolution des vulnérabilités et des crises majeures contemporaines en France}
+\label{annexe:tableau_crises_majeures}
+
+% Mettre tous les tableaux sur une seule et même page
+
+\input{annexes/tableaux_crises.tex}
+
+\clearpage
+
+\section{Maillage territorial des \AssociationsRegionalesIHEDN}
+\label{annexe:maillage_territorial_ihedn}
+
+\input{annexes/maillage_territorial.tex}
+
+\section{Enquête nationale auprès des associations régionales (2015)}
+\label{annexe:enquete_nationale_ar_2015}
+
+\input{annexes/enquete_nationale_AR_2015.tex}
+
+
+\section{Cheminement méthodologique du projet de questionnaire}
+\label{annexe:cheminement_questionnaire}
+
+\input{annexes/cheminement_questionnaire.tex}
+
+\clearpage
+
+\section{Lettre rédigée par Monsieur Alain Fontan à destination du Comité Directeur}
+\label{annexe:lettre_CODIR}
+
+\input{annexes/lettre_CODIR.tex}
+
+\clearpage
+
+\section{Maquette du questionnaire proposée par le comité}
+\label{annexe:maquette_questionnaire}
+
+\input{annexes/maquette_questionnaire.tex}
+
+\addcontentsline{toc}{section}{Références bibliographiques}
+\printbibheading[title={Références bibliographiques}]
+
+\addcontentsline{toc}{subsection}{Ouvrages}
+\newrefcontext[sorting=nyt]
+\printbibliography[	keyword=livre,
+					title={Ouvrages},
+					heading=subbibliography]
+
+\addcontentsline{toc}{subsection}{Articles de recherche}
+\newrefcontext[sorting=nyt]
+\printbibliography[	keyword=article_de_recherche,
+					title={Articles de recherche},
+					heading=subbibliography]
+
+\addcontentsline{toc}{subsection}{Rapports institutionnels}
+\newrefcontext[sorting=nyt]
+\printbibliography[	keyword=rapport_institutionnel,
+					title={Rapports institutionnels},
+					heading=subbibliography]
+
+\addcontentsline{toc}{subsection}{Ressources en ligne}
+\newrefcontext[sorting=nyt]
+\printbibliography[	keyword=article_online,
+					title={Ressources en ligne},
+					heading=subbibliography]
+
+\addcontentsline{toc}{subsection}{Articles de presse en ligne}
+\newrefcontext[sorting=nyt]
+\printbibliography[	keyword=article_presse_online,
+					title={Articles de presse en ligne},
+					heading=subbibliography]
+
+\end{document}

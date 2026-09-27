@@ -1,0 +1,553 @@
+\documentclass[12pt,a4paper]{article}
+
+% ===============================
+% LANGUE & TYPOGRAPHIE
+% ===============================
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+\usepackage[french]{babel}
+
+% ===============================
+% MISE EN PAGE
+% ===============================
+\usepackage[a4paper,left=2.2cm,right=2.2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{setspace}
+\setstretch{1.06}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+
+% ===============================
+% PAS DE CÉSURE
+% ===============================
+\usepackage[none]{hyphenat}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\setlength{\emergencystretch}{3em}
+
+% ===============================
+% LISTES & QCM
+% ===============================
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=2pt}
+\setlist[enumerate]{itemsep=5pt}
+
+\usepackage{amssymb} % cases à cocher
+\usepackage[table]{xcolor}
+\definecolor{EnqueteBlue}{HTML}{2F6FB7}
+\definecolor{EnqueteBlueDark}{HTML}{1F4F86}
+\definecolor{QuestionnaireGray}{gray}{0.18}
+\definecolor{RuleGray}{gray}{0.55}
+\usepackage{array}
+
+% ===============================
+% URL & LIENS
+% ===============================
+\usepackage{hyperref}
+\usepackage{xurl}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=black,
+  pdfborder={0 0 0}
+}
+
+\Urlmuskip=0mu plus 1mu
+
+% ===============================
+% MICROTYPOGRAPHIE
+% ===============================
+\usepackage{microtype}
+\usepackage{graphicx}
+
+% ===============================
+% EN-TÊTES / PIEDS DE PAGE
+% ===============================
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\cfoot{\colorbox{EnqueteBlue}{\textcolor{white}{\strut\quad\thepage\quad}}}
+
+% ===============================
+% TITRES
+% ===============================
+\usepackage[explicit]{titlesec}
+\titleformat{\section}
+  {\large\bfseries\color{white}}
+  {}{0pt}
+  {\colorbox{EnqueteBlue}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\thesection.\quad #1}}}
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{QuestionnaireGray}}
+  {\thesubsection.}{0.7em}{#1}
+\titlespacing*{\section}{0pt}{1.2em}{0.85em}
+\titlespacing*{\subsection}{0pt}{0.9em}{0.35em}
+
+% ===============================
+% COMMANDES
+% ===============================
+\newcommand{\Case}{\(\square\)}
+\newcommand{\Ligne}{\leavevmode\leaders\hrule height 0.35pt\hfill\kern0pt}
+\newcommand{\PetiteLigne}{\rule{0.38\linewidth}{0.35pt}}
+\newcommand{\Question}[1]{\item \textbf{#1}\par\vspace{0.1em}}
+\newcommand{\Consigne}[1]{\par{\small\itshape #1}\par}
+\newcommand{\Separateur}{\vspace{0.35em}\textcolor{RuleGray}{\hrule}\vspace{0.35em}}
+\newcommand{\Bandeau}[1]{%
+  \begin{center}
+  \colorbox{EnqueteBlue}{%
+    \parbox{0.82\linewidth}{%
+      \centering\bfseries\large\textcolor{white}{#1}%
+    }%
+  }
+  \end{center}
+}
+\newcommand{\BandeauAvecLogo}[1]{%
+  \noindent
+  \begin{minipage}[c]{0.16\linewidth}
+    \includegraphics[width=\linewidth]{../../Figures/logos_IHEDN/Logo_AR_16_PARIS_IDF.jpg}
+  \end{minipage}\hfill
+  \begin{minipage}[c]{0.76\linewidth}
+    \colorbox{EnqueteBlue}{%
+      \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+        \centering\bfseries\large\textcolor{white}{#1}%
+      }%
+    }
+  \end{minipage}
+  \par\vspace{1em}
+}
+\newcommand{\ChampLong}{\fbox{\rule{0pt}{1.6em}\hspace{0.92\linewidth}}}
+\newcommand{\ChampMoyen}{\fbox{\rule{0pt}{1.6em}\hspace{0.42\linewidth}}}
+
+% ===============================
+% DOCUMENT
+% ===============================
+\begin{document}
+
+\BandeauAvecLogo{QUESTIONNAIRE : ENGAGEMENT ET COMPÉTENCES EN GESTION DE CRISE}
+
+{\small
+\textbf{Association régionale des auditeurs IHEDN Paris-Ile-de-France (AR 16)}
+
+Objet : cartographie des compétences, disponibilités et modalités d'engagement mobilisables en cas de crise majeure.
+}
+
+\vspace{1.2em}
+
+\hfill Paris, le ...
+
+\vspace{1.2em}
+
+Chère Camarade, Cher Camarade de l'IHEDN AR 16 Paris-Ile-de-France,
+
+L'Association souhaite mieux connaître et évaluer la capacité de mobilisation de l'AR 16 en cas de crise majeure.
+
+Ce questionnaire a pour objectif de :
+\begin{itemize}[leftmargin=1.5cm]
+    \item identifier les compétences mobilisables ;
+    \item évaluer les disponibilités en cas de crise majeure ;
+    \item adapter les dispositifs de coordination.
+\end{itemize}
+
+Vos réponses seront traitées conformément à la législation sur la protection des données personnelles.
+
+\textbf{Niveau d'anonymat des réponses :}
+
+\Case{} Mes réponses ne sont pas anonymisées
+
+\Case{} Mes réponses sont anonymisées
+
+Ce questionnaire vous prendra environ 15 minutes à compléter.
+
+Pour toute question, vous pouvez nous contacter à : ...
+
+Merci, par avance, pour votre contribution à cette démarche d'objectivation.
+
+\clearpage
+
+\Bandeau{QUESTIONNAIRE : ENGAGEMENT ET COMPÉTENCES EN GESTION DE CRISE}
+
+\begin{center}
+\textbf{\textit{Merci de remplir les champs et de cocher les cases correspondant à votre situation.}}
+\end{center}
+
+\section{Profil}
+
+\subsection{Votre situation dans l'espace social et professionnel}
+
+Pour étudier vos réponses, nous avons besoin de savoir qui vous êtes un peu plus précisément. Les réponses à ces questions seront traitées de manière strictement anonyme, sauf accord explicite de votre part proposé à la fin du questionnaire.
+
+\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=0pt,itemindent=1.9em,labelwidth=1.4em,labelsep=0.5em]
+
+\Question{Vous êtes :}
+
+\Case{} Une femme \hspace{1cm} \Case{} Un homme \hspace{1cm} \Case{} Ne se prononce pas
+
+\Question{Votre année de naissance :}
+
+\Ligne
+
+\Question{Vous avez un conjoint ou une conjointe :}
+
+\Case{} Oui \hspace{1cm} \Case{} Non
+
+\Question{Vous avez des enfants d'âge scolaire :}
+
+\Case{} Oui \hspace{1cm} \Case{} Non
+
+\Question{Votre commune de résidence ou code postal :}
+
+\Ligne
+
+\Consigne{Veuillez indiquer un code postal valide, à cinq chiffres.}
+
+\Question{Quel est le niveau de diplôme le plus élevé que vous ayez obtenu ?}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item[] \Case{} BEP, CAP, brevet des collèges, BEPC, pas de diplôme ou certificat
+    \item[] \Case{} Baccalauréat général ou technologique, baccalauréat professionnel
+    \item[] \Case{} Bac + 2 : BTS, DUT, DEUG
+    \item[] \Case{} Bac + 3 ou Bac + 4 : licence, licence professionnelle, maîtrise
+    \item[] \Case{} Bac + 5 ou plus : master, DEA, DESS, diplôme de grande école, doctorat
+\end{itemize}
+
+\Question{Quelle est votre situation actuelle ?}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item[] \Case{} En emploi
+    \item[] \Case{} Au chômage
+    \item[] \Case{} Retraité ou retraitée
+    \item[] \Case{} Inactif ou inactive, hors retraite et études
+\end{itemize}
+
+\Question{Pour quel type d'employeur exercez-vous votre activité professionnelle ?}
+
+\Consigne{Si vous êtes sans emploi, retraité ou retraitée, ou inactif ou inactive, indiquez votre dernier employeur.}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item[] \Case{} Entreprise privée
+    \item[] \Case{} Secteur public
+        \begin{itemize}[leftmargin=1.2cm]
+            \item[] \Case{} État
+            \item[] \Case{} Armée, police, justice
+            \item[] \Case{} Collectivités territoriales
+            \item[] \Case{} Hôpitaux publics
+            \item[] \Case{} Autre : \Ligne
+        \end{itemize}
+    \item[] \Case{} Association, ONG ou secteur non marchand
+    \item[] \Case{} Indépendant ou travailleur indépendant
+    \item[] \Case{} Autre : \Ligne
+    \item[] \Case{} Ne s'applique pas
+\end{itemize}
+
+\Question{Quelle profession exercez-vous actuellement ?}
+
+\Consigne{Merci d'être le plus précis possible. Si vous êtes sans emploi, retraité ou retraitée, ou inactif ou inactive, indiquez votre dernière profession. Veuillez ne pas mentionner de données personnelles autres que celles faisant l'objet de la question.}
+
+\Ligne
+
+\Question{Où exercez-vous principalement votre profession ?}
+
+\Case{} Paris \hspace{1cm} \Case{} Île-de-France \hspace{1cm} \Case{} Ailleurs en France
+
+\Question{Avez-vous des contraintes professionnelles ?}
+
+\Case{} Astreintes \hspace{1cm} \Case{} Horaires fixes \hspace{1cm} \Case{} Mobilité
+
+\end{enumerate}
+
+\section{Parcours IHEDN}
+
+\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=0pt,itemindent=1.9em,labelwidth=1.4em,labelsep=0.5em,resume]
+
+\Question{Quel a été le cursus vous offrant la possibilité de devenir auditeur de l'IHEDN ?}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item[] \Case{} Session internationale
+    \item[] \Case{} Session nationale
+    \item[] \Case{} Session régionale
+    \item[] \Case{} Cycle long en intelligence économique et stratégique
+    \item[] \Case{} Sessions nationales du CHEAr
+    \item[] \Case{} Session Jeunes de l'IHEDN
+\end{itemize}
+
+\Question{En quelle année avez-vous suivi cette formation ?}
+
+\Ligne
+
+\Question{Numéro d'identification de la session suivie :}
+
+\Ligne
+
+\Question{Quel a été le mode de recrutement vous concernant ?}
+
+\Case{} Réseau personnel \hspace{1cm} \Case{} Institution \hspace{1cm} \Case{} Médias \hspace{1cm} \Case{} Événement public \hspace{1cm} \Case{} Autre : \Ligne
+
+\end{enumerate}
+
+\section{Engagement associatif}
+
+\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=0pt,itemindent=1.9em,labelwidth=1.4em,labelsep=0.5em,resume]
+
+\Question{Quelle est l'année de votre adhésion à l'AR 16 IHEDN Paris-Ile-de-France ?}
+
+\Ligne
+
+\Question{Comment vous situez-vous au sein de l'association ?}
+
+\Case{} Simple adhésion sans participation ni action
+
+\Case{} Engagement bénévole et participation active
+
+\Consigne{En cas de simple adhésion sans participation ni action, pourquoi ?}
+
+\Ligne
+
+\Question{Dans l'hypothèse d'un engagement actif, pouvez-vous préciser :}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item fréquence de votre participation : \Ligne
+    \item type d'activité : \Ligne
+    \item éventuelle responsabilité exercée : \Ligne
+    \item participation aux instances décisionnelles : \Case{} Oui \hspace{1cm} \Case{} Non
+    \item si oui, fonction au sein du bureau ou du comité directeur : \Ligne
+\end{itemize}
+
+\Question{Votre réseau interne : avec combien de membres êtes-vous en contact régulier ?}
+
+\Ligne
+
+\Question{Participez-vous à des groupes spécifiques ?}
+
+\Case{} Oui \hspace{1cm} \Case{} Non
+
+\Consigne{Si oui, lequel ou lesquels ?}
+
+\Ligne
+
+\Question{Y occupez-vous un rôle d'intermédiaire ou de coordinateur ?}
+
+\Case{} Oui \hspace{1cm} \Case{} Non
+
+\end{enumerate}
+
+\section{Perceptions et attentes}
+
+\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=0pt,itemindent=1.9em,labelwidth=1.4em,labelsep=0.5em,resume]
+
+\Question{Que représente pour vous le fait d'adhérer à l'Association en qualité de membre de l'AR 16 des auditeurs de l'IHEDN ?}
+
+\Consigne{Vous êtes invité à classer selon votre appréciation, de 1 à 5, les différentes propositions ci-dessous.}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item Développer un réseau de haut niveau : \Ligne
+    \item Approfondir les enjeux géopolitiques : \Ligne
+    \item Accéder à une information et à des analyses sur les enjeux de défense et de sécurité : \Ligne
+    \item S'engager bénévolement au développement de l'esprit de défense et à la préservation de la cohésion nationale :
+
+    \Ligne
+    \item Autre motivation : \Ligne
+\end{itemize}
+
+\Question{Lesquelles de vos attentes ont été satisfaites ?}
+
+\Ligne
+
+\Question{Lesquelles de vos attentes restent insatisfaites ?}
+
+\Ligne
+
+\subsection{Votre réseau IHEDN et coordination}
+
+\Question{Combien de membres de l'AR 16 connaissez-vous personnellement ?}
+
+\Case{} 1 à 5 \hspace{1cm} \Case{} 6 à 15 \hspace{1cm} \Case{} 16 à 30 \hspace{1cm} \Case{} Plus de 30
+
+\Question{En cas de crise, vous percevez-vous comme :}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item[] \Case{} Exécutant opérationnel
+    \item[] \Case{} Appui technique
+    \item[] \Case{} Coordinateur
+    \item[] \Case{} Soutien logistique
+    \item[] \Case{} Indéterminé
+\end{itemize}
+
+\Question{Vous informez-vous sur la vie de l'AR 16, les informations de l'IHEDN ou le contenu des publications sur les enjeux de défense ?}
+
+\Case{} Oui \hspace{1cm} \Case{} Non
+
+\Question{Êtes-vous abonné ou abonnée, lecteur ou lectrice régulier :}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item[] \Case{} Du magazine \emph{Défense. Géopolitique et sécurité}
+    \item[] \Case{} De la revue \emph{RDN}
+    \item[] \Case{} D'une des revues éditées par le ministère des Armées : \emph{Esprit Défense}, \emph{Cols bleus}, \emph{Air actualités}, \emph{TerreMag}, etc.
+    \item[] \Case{} Des réseaux sociaux de l'AR 16 ou liés à la défense
+\end{itemize}
+
+\end{enumerate}
+
+\section{Compétences en gestion de crise}
+
+\subsection{Vos compétences mobilisables en situation de crise}
+
+\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=0pt,itemindent=1.9em,labelwidth=1.4em,labelsep=0.5em,resume]
+
+\Question{Disposez-vous d'une expérience professionnelle ou bénévole de situations de crise ?}
+
+\Case{} Oui \hspace{1cm} \Case{} Non
+
+\Consigne{Si oui, veuillez préciser :}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item Secteur d'activité : \Ligne
+    \item Phase de la gestion de crise : \Ligne
+\end{itemize}
+
+\Question{Disposez-vous de formations certifiantes spécifiques : secourisme, gestion de crise, logistique, communication, etc. ?}
+
+\Case{} Oui \hspace{1cm} \Case{} Non
+
+\Consigne{Si oui, lesquelles ?}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item[] \Case{} Secourisme : PSC1, PSE, etc.
+    \item[] \Case{} Gestion de crise
+    \item[] \Case{} Logistique
+    \item[] \Case{} Sécurité
+    \item[] \Case{} Communication
+    \item[] \Case{} Coordination d'équipe
+    \item[] \Case{} Autre : \Ligne
+\end{itemize}
+
+\Question{Avez-vous déjà participé à une gestion réelle de crise ?}
+
+\Case{} Oui, professionnelle \hspace{1cm} \Case{} Oui, bénévole \hspace{1cm} \Case{} Non
+
+\Question{Quelles langues parlez-vous couramment ?}
+
+\Ligne
+
+\Question{Avez-vous un ou des permis ? Lesquels ?}
+
+\Ligne
+
+\Question{Quelles sont vos compétences dans les domaines du numérique et des réseaux sociaux ?}
+
+\Ligne
+
+\Question{Êtes-vous actuellement réserviste des Armées ?}
+
+\Consigne{Si la réponse est oui, veuillez cocher la case vous concernant.}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item[] \Case{} Réserve opérationnelle de niveau 1 : militaires à temps partiel
+    \item[] \Case{} Réserve opérationnelle de niveau 2 : ancien militaire
+    \item[] \Case{} Réserve citoyenne Défense et sécurité : bénévole
+    \item[] \Case{} Réserviste de gendarmerie
+    \item[] \Case{} Réserviste de cyberdéfense
+    \item[] \Case{} Réserviste d'un autre organisme
+    \item[] \Case{} Réserviste opérationnel de la Police nationale
+    \item[] \Case{} Réserve civique
+    \item[] \Case{} Réserve citoyenne de l'Éducation nationale
+    \item[] \Case{} Autre : \Ligne
+\end{itemize}
+
+\Question{Êtes-vous actuellement membre d'une association agréée par la sécurité civile ?}
+
+\Case{} Oui \hspace{1cm} \Case{} Non
+
+\Consigne{Si oui, dans quel secteur d'activité ?}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item[] \Case{} Administration
+    \item[] \Case{} Coordination en cas de crise
+    \item[] \Case{} Intervention sur le terrain
+    \item[] \Case{} Autre : \Ligne
+\end{itemize}
+
+\Question{Quelle a été votre participation aux exercices ou simulations ?}
+
+\Case{} Régulière \hspace{1cm} \Case{} Occasionnelle \hspace{1cm} \Case{} Rare \hspace{1cm} \Case{} Jamais
+
+\Question{Accepteriez-vous d'être mobilisé ou mobilisée en fonction de vos compétences et expériences ?}
+
+\Case{} Oui \hspace{1cm} \Case{} Non
+
+\Question{Quelle est ou serait la nature de votre expertise en situation de crise ?}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item[] \Case{} Veille
+    \item[] \Case{} Prévention
+    \item[] \Case{} Coordination
+    \item[] \Case{} Intervention
+    \item[] \Case{} Retour d'expérience : RETEX
+    \item[] \Case{} Autre : \Ligne
+\end{itemize}
+
+\end{enumerate}
+
+\section{Mobilisation en cas de crise}
+
+\begin{enumerate}[label=\textbf{\arabic*.},leftmargin=0pt,itemindent=1.9em,labelwidth=1.4em,labelsep=0.5em,resume]
+
+\Question{Accepteriez-vous d'être mobilisé ou mobilisée en temps de crise en tant qu'auditeur IHEDN AR 16 Paris-Ile-de-France ?}
+
+\Case{} Oui \hspace{1cm} \Case{} Non
+
+\Question{Si oui, à quel titre ?}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item[] \Case{} Veille
+    \item[] \Case{} Prévention
+    \item[] \Case{} Coordination en cas de crise
+    \item[] \Case{} Intervention sur le terrain
+    \item[] \Case{} Analyse post-crise ou RETEX
+    \item[] \Case{} Autre : \Ligne
+\end{itemize}
+
+\Question{Quelle serait votre disponibilité et capacité de mobilisation ?}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item \textbf{Délai de mobilisation possible :}
+        \begin{itemize}[leftmargin=1.2cm]
+            \item[] \Case{} Immédiat
+            \item[] \Case{} 24 heures
+            \item[] \Case{} 72 heures
+            \item[] \Case{} Plus d'une semaine
+        \end{itemize}
+    \item \textbf{Durée maximale de mobilisation possible :}
+        \begin{itemize}[leftmargin=1.2cm]
+            \item[] \Case{} 1 jour
+            \item[] \Case{} 2 à 3 jours
+            \item[] \Case{} 1 semaine
+            \item[] \Case{} Plus d'une semaine
+            \item[] \Case{} Autre : \Ligne
+        \end{itemize}
+    \item \textbf{Mobilité géographique :}
+        \begin{itemize}[leftmargin=1.2cm]
+            \item[] \Case{} Locale uniquement
+            \item[] \Case{} Départementale
+            \item[] \Case{} Régionale
+            \item[] \Case{} Nationale
+        \end{itemize}
+    \item \textbf{Contraintes majeures limitant votre mobilisation :}
+        \begin{itemize}[leftmargin=1.2cm]
+            \item[] \Case{} Professionnelles
+            \item[] \Case{} Familiales
+            \item[] \Case{} Santé
+            \item[] \Case{} Disponibilité nocturne ou le week-end
+            \item[] \Case{} Accès aux moyens de transport
+            \item[] \Case{} Aucune contrainte
+        \end{itemize}
+\end{itemize}
+
+\end{enumerate}
+
+Merci pour votre participation.
+
+Vos réponses participent directement au renforcement de la capacité collective de l'AR 16 face aux crises.
+
+\end{document}

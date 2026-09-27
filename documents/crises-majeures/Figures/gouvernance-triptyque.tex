@@ -1,0 +1,49 @@
+\begin{tikzpicture}[
+    governance circle/.style={draw=black, line width=1.1pt, fill=gray!3},
+    governance title/.style={font=\bfseries\footnotesize, align=center, text width=3.8cm},
+    governance body/.style={font=\scriptsize, align=center, text width=3.6cm, anchor=north, inner sep=0pt},
+    interaction arrow/.style={-{Stealth[length=2.4mm]}, line width=0.65pt},
+    interaction label/.style={font=\tiny, align=center, fill=white, inner sep=1.2pt}
+]
+\def\governanceradius{2.05}
+\coordinate (pilotage) at (0,2.15);
+\coordinate (scientifique) at (-3.15,-1.25);
+\coordinate (projet) at (3.15,-1.25);
+
+\draw[governance circle] (pilotage) circle[radius=\governanceradius cm];
+\draw[governance circle] (scientifique) circle[radius=\governanceradius cm];
+\draw[governance circle] (projet) circle[radius=\governanceradius cm];
+
+\draw[interaction arrow] (0.72,0.40) to[bend left=12]
+    node[interaction label, pos=0.50, sloped, above] {Orientation\\Validation} (1.52,-0.05);
+\draw[interaction arrow] (1.06,0.05) to[bend left=12]
+    node[interaction label, pos=0.50, sloped, below] {Reporting} (0.26,0.50);
+
+\draw[interaction arrow] (-0.72,0.40) to[bend right=12]
+    node[interaction label, pos=0.50, sloped, above] {Cadrage\\Arbitrage} (-1.52,-0.05);
+\draw[interaction arrow] (-1.06,0.05) to[bend right=12]
+    node[interaction label, pos=0.50, sloped, below] {Avis\\Conformité} (-0.26,0.50);
+
+\draw[interaction arrow] (-1.25,-1.05) to[bend left=10]
+    node[interaction label, pos=0.50, above] {Appui méthodologique\\et RGPD} (1.25,-1.05);
+\draw[interaction arrow] (1.25,-1.45) to[bend left=10]
+    node[interaction label, pos=0.50, below] {Besoins terrain\\Retours opérationnels} (-1.25,-1.45);
+
+\node[governance title] at (0,2.80) {Comité de pilotage};
+\node[governance body] at (0,2.42) {%
+    Présidents des trois\\régions pilotes\\[0.08cm]
+    Présidence de l'Union IHEDN\\[0.08cm]
+    Membres du comité d'étude
+};
+
+\node[governance title] at (-3.15,-0.60) {Comité scientifique};
+\node[governance body] at (-3.15,-0.98) {%
+    Expert en études\\et enquêtes sociologiques\\[0.08cm]
+    Juriste RGPD
+};
+
+\node[governance title] at (3.15,-0.60) {Équipe projet};
+\node[governance body] at (3.15,-0.98) {%
+    Membres opérationnels\\du comité
+};
+\end{tikzpicture}

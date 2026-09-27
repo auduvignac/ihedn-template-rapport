@@ -1,0 +1,32 @@
+\noindent La présente maquette constitue un projet non soumis aux instances de l'\ARSeize{}, non validé à ce stade, et dont l'examen ainsi que les arbitrages restent à prévoir.
+
+\medskip
+
+\IhednSetPdfPageCount{\IhednIncludedPdfPageCount}{QCM.pdf}
+\begin{tcolorbox}[
+  colback=gray!5,
+  colframe=black,
+  boxrule=0.5pt,
+  arc=3mm,
+  before skip=0pt,
+  after skip=0pt
+]
+\centering
+\includegraphics[page=1,width=0.84\textwidth]{QCM.pdf}
+\end{tcolorbox}
+\clearpage
+
+\foreach \IhednIncludedPdfPage in {2,...,\the\IhednIncludedPdfPageCount}{%
+  \begin{tcolorbox}[
+    colback=gray!5,
+    colframe=black,
+    boxrule=0.5pt,
+    arc=3mm
+  ]
+  \centering
+  \includegraphics[page=\IhednIncludedPdfPage,width=0.95\textwidth]{QCM.pdf}
+  \end{tcolorbox}
+  \ifnum\IhednIncludedPdfPage<\IhednIncludedPdfPageCount
+    \clearpage
+  \fi
+}%
