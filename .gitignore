@@ -1,24 +1,33 @@
 # LaTeX / latexmk / biblatex generated files
+*.acn
+*.acr
+*.alg
 *.aux
 *.bbl
 *.bcf
 *.blg
 *.fdb_latexmk
 *.fls
+*.glg
+*.glo
+*.gls
+*.ist
 *.lof
 *.log
+*.lop
 *.lot
 *.out
 *.run.xml
 *.synctex.gz
+*.synctex(busy)
 *.toc
 *.xdv
 
 # Build outputs
 /build/
-/main.pdf
 
 # Editor settings
 /.vscode/
+.codex
 
 
